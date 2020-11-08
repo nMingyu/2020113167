@@ -26,7 +26,7 @@ def print_shift():
 
 def print_shift_list():
 
-    print ('추가예정') 2
+    print ('추가예정') 
 
 while True:
     print_help()
