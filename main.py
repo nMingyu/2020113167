@@ -77,7 +77,7 @@ def getLastDay(year,month):
     return k.day
 
 
-def body(year,month):
+def body(year,month,shift):
 
     startday=getStartDay(year,month)
 
@@ -117,11 +117,11 @@ def body(year,month):
 
     
 
-def Dal(year,month):
+def Dal(year,month,shift):
 
     title(year,month)
 
-    body(year,month)
+    body(year,month,shift)
 
 def main():
 
@@ -129,7 +129,7 @@ def main():
 
     month=eval(input('월을 입력하세요(1~12):'))
 
-    Dal(year,month)
+    Dal(year,month,choice_shift)
 
 while True:
     print_help()
@@ -152,4 +152,4 @@ while True:
         print ('잘못 입력했습니다.') 
 
     
-
+## 
