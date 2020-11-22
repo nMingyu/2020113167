@@ -112,6 +112,7 @@ def body(year,month,shift):
                     m=m+1
 
                     print('{:>2}'.format(m),end='  ')
+                    ## 교대 근무 출력 표시 
 
         print()
 
@@ -126,10 +127,11 @@ def Dal(year,month,shift):
 def main():
 
     year=eval(input('연도를 입력하세요(ex. YYYY):'))
-
+    
     month=eval(input('월을 입력하세요(1~12):'))
 
     Dal(year,month,choice_shift)
+    # print_shift_list 에서 처리?
 
 while True:
     print_help()
@@ -144,6 +146,7 @@ while True:
         choice_shift_num = input("본인의 근무패턴에 알맞은 번호를 입력해주세요 >> ")
         if choice_shift_num == '3':
             choice_shift = input("본인의 근무패턴을 입력해주세요 >> ")
+            # 입력받는 방법 찾아보기 (전역변수?)
         else :
             print ('잘못 입력했습니다.')
     elif choice == '2':
