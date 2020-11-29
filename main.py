@@ -26,10 +26,6 @@ def print_shift():
         '',
         sep='\n'
     )
-
-def print_shift_list():
-
-    main()
     
 
 def getMonthName(month):
@@ -43,6 +39,8 @@ def getMonthName(month):
     return monthName
 
 def title(year,month):
+
+    print()
 
     print('    ',getMonthName(month),' ',year)
 
@@ -77,7 +75,7 @@ def getLastDay(year,month):
     return k.day
 
 
-def body(year,month,shift):
+def body(year,month):
 
     startday=getStartDay(year,month)
 
@@ -111,18 +109,19 @@ def body(year,month,shift):
 
                     m=m+1
 
-                    print('{:>2}'.format(m),end='  ')
-                    ## 교대 근무 출력 표시 
+                    print('{:>2}'.format(m),'('+choice_shift_arr[m]+')',end='  ')
+                    #print(choice_shift_arr[m])
+                
 
         print()
 
     
 
-def Dal(year,month,shift):
+def Dal(year,month):
 
     title(year,month)
 
-    body(year,month,shift)
+    body(year,month)
 
 def main():
 
@@ -130,7 +129,7 @@ def main():
     
     month=eval(input('월을 입력하세요(1~12):'))
 
-    Dal(year,month,choice_shift)
+    Dal(year,month)
     # print_shift_list 에서 처리?
 
 while True:
@@ -141,18 +140,33 @@ while True:
     if choice == '0':
         print('프로그램을 종료합니다')
         break
+
     elif choice == '1':
+
         print_shift()
+
         choice_shift_num = input("본인의 근무패턴에 알맞은 번호를 입력해주세요 >> ")
-        if choice_shift_num == '3':
+
+        if choice_shift_num == '1':
+            choice_shift_arr = ["주","야","비","휴"]
+
+        elif choice_shift_num == '2':
+            choice_shift_arr = ["주","주","야","야","비","휴"]
+
+        elif choice_shift_num == '3':
             choice_shift = input("본인의 근무패턴을 입력해주세요 >> ")
-            # 입력받는 방법 찾아보기 (전역변수?)
+            choice_shift_arr = list(choice_shift.strip())
+            print(choice_shift_arr)
+            for i in range(len(choice_shift_arr)) :
+                print('('+choice_shift_arr[i]+')', end='  ')
+
         else :
             print ('잘못 입력했습니다.')
+
     elif choice == '2':
-        print_shift_list()
+        main()
+
     else :
         print ('잘못 입력했습니다.') 
 
-    
-## 
+
