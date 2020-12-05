@@ -7,12 +7,12 @@ def print_help():
         '-----------------',
         '교대근무 근무표',
         '0: 종료',
-        '1: 근무패턴입력',
-        '2: 근무스케줄표',
+        '1: 근무스케줄표',
         '-----------------',
         '',
         sep='\n'
     )
+
 
 def print_shift():
     print (
@@ -28,6 +28,50 @@ def print_shift():
     )
     
 
+
+def main():
+    
+    print_shift()
+
+    choice_shift_num = input("본인의 근무패턴에 알맞은 번호를 입력해주세요 >> ")
+    
+    if choice_shift_num == '1':
+        choice_shift_arr = ["주","야","비","휴"]
+
+    elif choice_shift_num == '2':
+        choice_shift_arr = ["주","주","야","야","비","휴"]
+
+    elif choice_shift_num == '3':
+        choice_shift = input("본인의 근무패턴을 입력해주세요 >> ")
+        choice_shift_arr = list(choice_shift.strip())
+        
+    else :
+        print ('잘못 입력했습니다.') 
+
+    year=eval(input('연도를 입력하세요(ex. YYYY):'))
+    
+    month=eval(input('월을 입력하세요(1~12):'))
+
+    Dal(year,month,choice_shift_arr)
+
+
+def Dal(year,month,choice_shift_arr):
+
+    title(year,month)
+
+    body(year,month,choice_shift_arr)    
+
+
+def title(year,month):
+
+    print()
+
+    print('                      ',getMonthName(month),' ',year)
+
+    print('-'*60)
+
+    print('    일       월       화       수       목       금       토')
+
 def getMonthName(month):
 
     li=['January','February','March','April','May','June',
@@ -38,21 +82,58 @@ def getMonthName(month):
 
     return monthName
 
-def title(year,month):
 
-    print()
+def body(year,month,choice_shift_arr):
 
-    print('    ',getMonthName(month),' ',year)
+    startday=getStartDay(year,month)
 
-    print('-'*26)
+    lastday=getLastDay(year,month)
 
-    print('일  월  화  수  목  금  토')
+    if startday==6:
+
+        s=1
+
+    else:
+
+        s=startday+2
+
+    c=0
+
+    m=0
+
+    n=0
+
+    for k in range(6):
+
+        for i in range(7):
+
+            c=c+1
+
+            if c<s:
+
+                print('{:>2}'.format(' '),end='       ')    #공백 출력
+
+            else:
+
+                if lastday>m:   
+
+                    m=m+1
+                
+                    print('{:>2}'.format(m),'('+choice_shift_arr[n]+')',end='  ')     # 날짜
+
+                    n=n+1
+
+                    if (m % len(choice_shift_arr)) ==  0:
+                        n = 0
+        print()
+
 
 def getStartDay(year,month):
 
     d=datetime.date(year,month,1)
 
     return d.weekday()#월요일 0
+
 
 def getLastDay(year,month):
 
@@ -75,63 +156,6 @@ def getLastDay(year,month):
     return k.day
 
 
-def body(year,month):
-
-    startday=getStartDay(year,month)
-
-    lastday=getLastDay(year,month)
-
-    if startday==6:
-
-        s=1
-
-    else:
-
-        s=startday+2
-
-    c=0
-
-    m=0
-
-    for k in range(6):
-
-        for i in range(7):
-
-            c=c+1
-
-            if c<s:
-
-                print('{:>2}'.format(' '),end='  ')
-
-            else:
-
-                if lastday>m:
-
-                    m=m+1
-
-                    print('{:>2}'.format(m),'('+choice_shift_arr[m]+')',end='  ')
-                    #print(choice_shift_arr[m])
-                
-
-        print()
-
-    
-
-def Dal(year,month):
-
-    title(year,month)
-
-    body(year,month)
-
-def main():
-
-    year=eval(input('연도를 입력하세요(ex. YYYY):'))
-    
-    month=eval(input('월을 입력하세요(1~12):'))
-
-    Dal(year,month)
-    # print_shift_list 에서 처리?
-
 while True:
     print_help()
 
@@ -142,31 +166,7 @@ while True:
         break
 
     elif choice == '1':
-
-        print_shift()
-
-        choice_shift_num = input("본인의 근무패턴에 알맞은 번호를 입력해주세요 >> ")
-
-        if choice_shift_num == '1':
-            choice_shift_arr = ["주","야","비","휴"]
-
-        elif choice_shift_num == '2':
-            choice_shift_arr = ["주","주","야","야","비","휴"]
-
-        elif choice_shift_num == '3':
-            choice_shift = input("본인의 근무패턴을 입력해주세요 >> ")
-            choice_shift_arr = list(choice_shift.strip())
-            print(choice_shift_arr)
-            for i in range(len(choice_shift_arr)) :
-                print('('+choice_shift_arr[i]+')', end='  ')
-
-        else :
-            print ('잘못 입력했습니다.')
-
-    elif choice == '2':
         main()
 
     else :
         print ('잘못 입력했습니다.') 
-
-
